@@ -6,7 +6,9 @@ services:
     ports:
       - "8002:8002"
     volumes:
-      - ${HOME}/.local/share/argos-translate/packages:/root/.local/share/argos-translate/packages
+      # ARGOS_PACKAGES_DIR lets the installer pin an absolute host path —
+      # needed because `sudo` wipes $HOME, so compose can't expand ~ by itself.
+      - ${ARGOS_PACKAGES_DIR:-${HOME}/.local/share/argos-translate/packages}:/root/.local/share/argos-translate/packages
       - ./data/helsinki-out:/app/data/helsinki-out
       - ./data/hf-cache:/root/.cache/huggingface
     restart: unless-stopped

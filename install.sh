@@ -25,10 +25,15 @@ cd "$DEST"
 DOCKER="docker"
 if ! docker info >/dev/null 2>&1; then
   log "docker requires sudo on this host"
-  DOCKER="sudo docker"
+  # Preserve HOME so ${HOME}/.local/share/argos-translate/packages expands to the user's cache, not root's.
+  DOCKER="sudo -E env HOME=${HOME} docker"
 fi
 
-log "Building and starting container on port $PORT"
+# Pin the argos cache path explicitly — survives sudo clearing the env later.
+export ARGOS_PACKAGES_DIR="${ARGOS_PACKAGES_DIR:-${HOME}/.local/share/argos-translate/packages}"
+mkdir -p "$ARGOS_PACKAGES_DIR"
+
+log "Building and starting container on port $PORT (argos cache: $ARGOS_PACKAGES_DIR)"
 $DOCKER compose up -d --build
 
 log "Waiting for service to be ready"
