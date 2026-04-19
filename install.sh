@@ -44,11 +44,15 @@ DESKTOP_APPS="${HOME}/.local/share/applications/selena-translator.desktop"
 DESKTOP_LINK="${HOME}/Desktop/selena-translator.desktop"
 
 mkdir -p "${HOME}/.local/share/applications"
-install -m 0755 "$DESKTOP_SRC" "$DESKTOP_APPS"
+install -m 0775 "$DESKTOP_SRC" "$DESKTOP_APPS"
 log "Installed application entry: $DESKTOP_APPS"
 
 if [ -d "${HOME}/Desktop" ]; then
-  install -m 0755 "$DESKTOP_SRC" "$DESKTOP_LINK"
+  install -m 0775 "$DESKTOP_SRC" "$DESKTOP_LINK"
+  # Mark as trusted so GNOME/Nautilus renders the icon instead of a script file
+  if command -v gio >/dev/null 2>&1; then
+    gio set "$DESKTOP_LINK" metadata::trusted true 2>/dev/null || true
+  fi
   log "Installed desktop shortcut: $DESKTOP_LINK"
 fi
 
