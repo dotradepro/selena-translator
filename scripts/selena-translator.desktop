@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Selena Translator
+Comment=Open Selena Translator web UI in browser
+Icon=web-browser
+Exec=xdg-open http://localhost:8002/
+Terminal=false
+Categories=Network;WebBrowser;

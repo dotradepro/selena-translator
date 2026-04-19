@@ -1,0 +1,41 @@
+:root {
+  --brand: #4a7bd3;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar-brand img {
+  border-radius: 6px;
+}
+
+textarea.form-control {
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+#h-log {
+  white-space: pre-wrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8rem;
+  min-height: 120px;
+}
+
+[data-bs-theme="dark"] .navbar {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+[data-bs-theme="light"] .navbar {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.btn[data-lang].active {
+  background-color: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+}
